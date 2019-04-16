@@ -1,0 +1,90 @@
+<!doctype html>
+<html  lang="sv">
+    
+	<head>
+        <meta charset="utf-8" /> 
+        <title>
+			JavaScript för webbutveckling ISGB15		
+        </title>	
+        <link rel="stylesheet" href="style.css" type="text/css" />	
+
+		<script type="text/javascript">
+			
+			addEventListener("load", prepareGUI, false);
+			
+			function prepareGUI() {
+			
+				
+				let inputRefs = document.querySelectorAll("[type=range]"); //eller input[type=range]
+				let nbr = inputRefs.length;
+				let currentRange = null;
+				
+				for(let counter = 0; counter < nbr; counter++) {
+				
+					currentRange = inputRefs.item(counter);
+					
+					currentRange.addEventListener("input", function(oEvent) { 
+																		console.log("input");
+																		console.log("target: " + oEvent.target);
+																		console.log("currentTarget: " + oEvent.currentTarget);
+																	}, false);
+																	
+				}
+				
+				
+				document.querySelector("#theForm").addEventListener("input", function(oEvent) { 
+																				
+																				changeColor(); 
+																				console.log("form");
+																				console.log("target: " + oEvent.target);
+																				console.log("currentTarget: " + oEvent.currentTarget);
+																			}, false);
+																			
+				document.querySelector("body").addEventListener("input", function(oEvent) { 
+																				console.log("body");
+																				console.log("target: " + oEvent.target);
+																				console.log("currentTarget: " + oEvent.currentTarget);
+																			}, false);
+																			
+				document.querySelector("html").addEventListener("input", function(oEvent) { 
+																				console.log("html");
+																				console.log("target: " + oEvent.target);
+																				console.log("currentTarget: " + oEvent.currentTarget);
+																			}, false);
+				
+				changeColor();
+			}
+			
+			function changeColor() {
+				
+				let rangeRed = document.querySelector("#red").value; 
+				let rangeGreen = document.querySelector("#green").value; 
+				let rangeBlue = document.querySelector("#blue").value; 
+				let rangeTrans = (document.querySelector("#transparens").value / 100); 
+				let bodyRef = document.querySelector("body");
+				let cssrgba = "rgba(" + rangeRed + ", " + rangeGreen + ", " + rangeBlue + ", " + rangeTrans + ")";
+				
+				bodyRef.style.backgroundColor = cssrgba;
+	
+			}
+			
+		</script>
+		
+	</head>
+	
+	<body>
+       
+		<form method="post" id="theForm">
+			<h2>Röd:</h2>
+			<input type="range" id="red" min="0" max="255" value="50" />
+			<h2>Grön:</h2>
+			<input type="range" id="green" min="0" max="255" value="100" />
+			<h2>Blå:</h2>
+			<input type="range" id="blue" min="0" max="255" value="150" />
+			<h2>Transparens:</h2>
+			<input type="range" id="transparens" min="1" max="100" value="50" />
+		</form>
+	   
+    </body>
+	
+</html>
